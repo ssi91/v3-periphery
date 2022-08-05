@@ -34,18 +34,23 @@ async function deployContractFromArtifact(signer: SignerWithAddress, artifactPat
 async function main() {
     const [signer] = await ethers.getSigners()
 
+    // WETH9
     const weth9 = await deployContractFromArtifact(signer, initialConfig.weth9.artifactPath)
     await weth9.deployed()
     console.log(weth9.address)
 
+    // Factory Contract
     const factory = await deployContractFromArtifact(signer, initialConfig.factory.artifactPath)
     await factory.deployed()
     console.log(factory.address)
 
+    // Router
     const RouterFactory = await ethers.getContractFactory("SwapRouter")
     const router = await RouterFactory.deploy(factory.address, weth9.address)
     await router.deployed()
     console.log(router.address)
+
+    // TODO: Create NFT position manager
 }
 
 main().then(() => process.exit(0))
