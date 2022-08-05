@@ -1,8 +1,9 @@
-import {Contract} from "typechain";
 import {SignerWithAddress} from "@nomiclabs/hardhat-ethers/src/signers";
 import fs from "fs";
+import {Contract} from "ethers";
 
 const hre = require('hardhat')
+const ethers = hre.ethers
 
 let initialConfig = {
     factory: {
