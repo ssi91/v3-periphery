@@ -1,19 +1,11 @@
 import {SignerWithAddress} from "@nomiclabs/hardhat-ethers/src/signers";
 import fs from "fs";
 import {Contract} from "ethers";
+import {initialConfig} from "./initialConfig";
 
 const hre = require('hardhat')
 const ethers = hre.ethers
 
-let initialConfig = {
-    factory: {
-        artifactPath: "",
-    },
-    weth9: {
-        artifactPath: "",
-    },
-    nativeTokenSymbol: "",
-}
 
 async function deployContractFromArtifact(signer: SignerWithAddress, artifactPath: string): Promise<Contract> {
     let getArtifact = (artifactPath: string): { abi: object, bytecode: object } => {
