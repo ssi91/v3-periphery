@@ -2,8 +2,6 @@ import {SignerWithAddress} from "@nomiclabs/hardhat-ethers/src/signers";
 import fs from "fs";
 import {Contract} from "ethers";
 import {initialConfig} from "./initialConfig";
-import {TupleType} from "typechain";
-import {any} from "hardhat/internal/core/params/argumentTypes";
 
 const hre = require('hardhat')
 const ethers = hre.ethers
@@ -116,6 +114,9 @@ async function main() {
     const positionManagerAbi = JSON.parse(PositionManagerFactory.interface.format(ethers.utils.FormatTypes.json))
     generalConfig.positionManager.address = positionManager.address
     generalConfig.positionManager.abi = positionManagerAbi
+
+    fs.writeFileSync("./scripts/config.json", JSON.stringify(generalConfig), {flag: "w+"})
+    console.log("Config created in", process.cwd() + "/scripts/config.json")
 }
 
 main().then(() => process.exit(0))
